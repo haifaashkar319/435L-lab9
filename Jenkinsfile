@@ -28,6 +28,15 @@ pipeline {
                 }
             }
         }
+         stage('Coverage') {
+            steps {
+                script {
+                    bat "${VIRTUAL_ENV}\\Scripts\\activate && set PYTHONPATH=%CD% && coverage run -m unittest discover"
+                    bat "${VIRTUAL_ENV}\\Scripts\\activate && coverage report"
+                    bat "${VIRTUAL_ENV}\\Scripts\\activate && coverage html"  // Optional: Generates an HTML report
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 echo "Deploying application..."
