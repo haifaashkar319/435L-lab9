@@ -45,10 +45,14 @@ pipeline {
         }
     }
         stage('Deploy') {
-            steps {
-                echo "Deploying application..."
+        steps {
+            script {
+                bat "mkdir C:\\deployment_folder"  // Create a deployment folder if it doesn't exist
+                bat "copy app.py C:\\deployment_folder"  // Copy app.py to the deployment folder
+                bat "copy requirements.txt C:\\deployment_folder"  // Copy requirements.txt
             }
         }
+    }
     }
     post {
         always {
